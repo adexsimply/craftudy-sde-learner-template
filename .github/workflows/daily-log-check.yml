@@ -1,0 +1,34 @@
+name: Daily log check
+# Runs at 23:30 Lagos time. If logs/<today>.md is missing, opens (or updates) one "Missing daily log" issue.
+on:
+  schedule:
+    - cron: "30 22 * * *"   # 22:30 UTC = 23:30 WAT
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Look for today's log
+        id: log
+        run: |
+          TODAY=$(TZ=Africa/Lagos date +%F)
+          echo "today=$TODAY" >> "$GITHUB_OUTPUT"
+          if [ -f "logs/$TODAY.md" ]; then echo "found=yes" >> "$GITHUB_OUTPUT"; else echo "found=no" >> "$GITHUB_OUTPUT"; fi
+      - name: Nudge
+        if: steps.log.outputs.found == 'no'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TODAY: ${{ steps.log.outputs.today }}
+        run: |
+          NUM=$(gh issue list --label "missed-log" --state open --json number --jq '.[0].number // empty')
+          BODY="No \`logs/$TODAY.md\` by 23:30. 20 focused minutes and 3 sentences still count. Add the file and close this issue."
+          if [ -z "$NUM" ]; then
+            gh label create missed-log --color D93F0B --description "A daily log was not filed" 2>/dev/null || true
+            gh issue create --title "Missing daily log: $TODAY" --label missed-log --body "$BODY"
+          else
+            gh issue comment "$NUM" --body "Still missing on $TODAY. $BODY"
+          fi
