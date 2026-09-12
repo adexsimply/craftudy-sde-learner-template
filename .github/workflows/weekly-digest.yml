@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Build digest
         env:
           GH_TOKEN: ${{ github.token }}
@@ -24,7 +26,11 @@ jobs:
           LOGS=0; MISSING=""
           for i in 6 5 4 3 2 1 0; do
             D=$(date -d "$TODAY -$i day" +%F)
-            if [ -f "logs/$D.md" ]; then LOGS=$((LOGS+1)); else MISSING="$MISSING $D"; fi
+            HIT=no
+            for ref in $(git for-each-ref --format='%(refname)' refs/remotes/origin); do
+              if git cat-file -e "$ref:logs/$D.md" 2>/dev/null; then HIT=yes; break; fi
+            done
+            if [ "$HIT" = yes ]; then LOGS=$((LOGS+1)); else MISSING="$MISSING $D"; fi
           done
           PRS=$(gh pr list --state open --json number,title,url --jq '.[] | "- #\(.number) \(.title) \(.url)"')
           [ -z "$PRS" ] && PRS="- none open"

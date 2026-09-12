@@ -15,4 +15,5 @@ docker compose up
 - `later.md` — ideas parked for a future cycle
 
 ## Weekly rhythm
-Sunday 9pm: PR open using the PR template that appears automatically.
+Branch per week (`week-1`), **commit and push a log every day**, PR by Sunday 9pm.
+Full walkthrough with a worked example: [SUBMISSION.md](SUBMISSION.md)
