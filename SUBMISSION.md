@@ -45,10 +45,21 @@ and the bot will have opened an issue every night in between.
 
 ## Monday: start the week's branch
 
+The branch is named `week-1`, `week-2`, and so on. **With the hyphen.** It is a small thing, but
+three repos reviewed side by side are much easier to read when they are laid out identically.
+
 ```bash
 git checkout main
 git pull
 git checkout -b week-1
+```
+
+Named it wrong already? Rename it, do not start over:
+
+```bash
+git branch -m week1 week-1
+git push origin -u week-1
+git push origin --delete week1
 ```
 
 You now work on `week-1` all week. `main` stays as it was until the PR is merged.
@@ -205,8 +216,9 @@ one missed daily log does not.
 
 **Finished early?** Open the PR early. Reviews can start sooner.
 
-**Stuck more than 45 minutes?** Write the blocker in the log and in the group. AI first, then
-your peer, then Shina.
+**Stuck more than 45 minutes?** Write it on the **Blocked on** line in that day's log. That line is
+pulled out automatically and shown to Shina, so writing it there is how you ask for help without
+having to chase anyone. Put "nothing" when you are not stuck. AI first, then your peer, then Shina.
 
 **We have never used PRs before.** You have merged before. This is a merge with a review pause.
 Nothing else is different.
