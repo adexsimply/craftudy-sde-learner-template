@@ -163,6 +163,37 @@ Everything above in buttons instead of commands.
 2. Back in GitHub Desktop: `Current Branch` → `main` → **Fetch/Pull origin**.
 3. New week, new branch from `main`.
 
+
+## On AI, and how we check you actually learned it
+
+Use AI. Seriously. You will use it for the rest of your career and pretending otherwise is
+training for a job that no longer exists. It is listed as a resource in the plan.
+
+There is exactly one rule: **you must be able to explain every line you ship.**
+
+That is not a slogan, it is checked. Three ways, and none of them are a gotcha:
+
+**1. You declare it.** The PR asks where AI helped you this week. Answer honestly and specifically.
+Nobody is marked down for using it. The only thing that breaks the rule is hiding it, because then
+nobody can tell which parts you actually hold.
+
+**2. The five-minute walkthrough.** At each fortnightly call, one file is picked from your pull
+request and you talk through it line by line. Why this and not that. What breaks if you delete
+this line. Where it fails. Five minutes. Nothing survives this if you did not understand what you
+shipped, and everything survives it if you did, no matter who typed it first.
+
+**3. Change it live.** Sometimes you will be asked to make a small modification on the call. Make
+it handle an empty folder. Make it exit non-zero on failure. Two minutes. Understanding shows up
+instantly here.
+
+We also look at *how* the work arrived. A week that lands in one commit on Sunday night gets
+questions, not because a big commit is cheating, but because that is not what learning looks like
+from the outside. Steady daily pushes make this a non-issue, which is why the daily log exists.
+
+None of this is about catching you. If you can explain it and change it, it is yours. If you can
+not, then whatever produced it, you did not learn anything this week, and that is the only failure
+this programme actually cares about.
+
 ## Quick answers
 
 **Do I push once a week?** No. Daily. The bot checks nightly.
@@ -185,3 +216,6 @@ add him and each other with Write access. See the access section above.
 
 **Where does the review conversation happen?** On the pull request page itself, on the
 "Files changed" tab. Click a line number to comment on that exact line.
+
+**Am I allowed to use AI?** Yes. See the section above. Declare it, and be able to explain and
+change what you ship.
