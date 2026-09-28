@@ -147,6 +147,65 @@ PR by Sunday 9pm.
 
 The call holds even if only one person shows up.
 
+
+## Where the DSA solutions go
+
+In `dsa/`. **One file per problem, not one file per week**, and not buried in the daily log.
+
+```
+dsa/two-sum.md
+dsa/contains-duplicate.md
+dsa/best-time-to-buy-and-sell-stock.md
+```
+
+Each file has three parts, in this order:
+
+```markdown
+# Two Sum
+
+Given an array of numbers and a target, return the indices of the two
+numbers that add up to the target.
+
+## Approach
+
+Walk the array once. For each number, work out what its partner would
+have to be (target minus this number) and check whether we have already
+seen that partner. If we have, we are done. If not, remember this number
+and where it was.
+
+## Code
+
+​```js
+function twoSum(nums, target) {
+  const seen = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const needed = target - nums[i];
+    if (seen.has(needed)) return [seen.get(needed), i];
+    seen.set(nums[i], i);
+  }
+}
+​```
+
+## Complexity
+
+O(n) time, because we touch each number once.
+O(n) space, because the Map can grow to the size of the input.
+
+Brute force would be O(n²) time and O(1) space. The Map buys time with space.
+```
+
+**The approach goes first, in plain English, before any code.** If you cannot say what
+you are going to do in three sentences, you are not ready to type. That section is the
+part being marked, not the code.
+
+**Why a folder and not the log.** The log is a diary — it is ordered by date and you will
+never read it again. `dsa/` is a reference. By the end of the cycle it holds three dozen
+problems, each with the approach that worked and the trade-off you made. That folder is
+what you revise from the night before an interview. The log cannot do that job.
+
+Still mention the problem in the day's log, one line, with how long it took. Then the
+solution itself lives in `dsa/`.
+
 ## If you use GitHub Desktop
 
 Everything above in buttons instead of commands.
@@ -231,3 +290,6 @@ add him and each other with Write access. See the access section above.
 
 **Am I allowed to use AI?** Yes. See the section above. Declare it, and be able to explain and
 change what you ship.
+
+**Where do DSA solutions go?** `dsa/`, one file per problem, approach in plain English before
+the code. See the section above.
